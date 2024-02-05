@@ -21,7 +21,7 @@ namespace Services
         {
 
             
-            Console.Write("Digite a placa do veículo para estacionar: ");
+            Console.Write("Digite a placa do veiculo para estacionar: ");
             string placa = Console.ReadLine().ToUpper();
 
 
@@ -36,15 +36,18 @@ namespace Services
                     };
 
                     EstacionamentoRepository.Adicionar(vec);
-                    Console.WriteLine("Placa Válida!!!");
+                    Console.WriteLine("Placa Valida!!!");
                 }
 
                 else
                 {
-                    Console.WriteLine("Placa Já Existe no Estacionamento!!!");
+                    Console.WriteLine("Placa Ja Existe no Estacionamento!!!");
                 }
 
 
+            }
+            else{
+                Console.WriteLine("Erro na Placa!");
             }
 
 
@@ -61,7 +64,7 @@ namespace Services
         {
 
             Console.Clear();
-            Console.Write("Digite a placa do veículo para remover: ");
+            Console.Write("Digite a placa do veiculo para remover: ");
             string placa = Console.ReadLine().ToUpper();
 
            
@@ -73,7 +76,7 @@ namespace Services
 
 
                 
-                Console.Write("Digite a quantidade de horas que o veículo permaneceu estacionado: ");
+                Console.Write("Digite a quantidade de horas que o veiculo permaneceu estacionado: ");
                 int horas = int.Parse(Console.ReadLine());
               
                  
@@ -82,11 +85,11 @@ namespace Services
 
               
 
-                  Console.WriteLine($"O veículo  {placa}, foi removido e o preço total foi de: R$ {valorTotal}");
+                  Console.WriteLine($"O veiculo  {placa}, foi removido e o preco total foi de: R$ {valorTotal}");
             }
             else
             {
-                Console.WriteLine("Placa não existe no estacionamento!");
+                Console.WriteLine("Placa nao existe no estacionamento!");
             }
 
             Console.ReadKey();
@@ -107,7 +110,7 @@ namespace Services
             if (veiculos.Count>0)
             {
                 Console.Clear();
-                Console.WriteLine("Os veículos estacionados são:");
+                Console.WriteLine("Os veiculos estacionados são:");
 
                 foreach (var CopiaVeiculo in veiculos)
                 {
@@ -117,7 +120,7 @@ namespace Services
             }
             else
             {
-                Console.WriteLine("Não há veículos estacionados.");
+                Console.WriteLine("Nao ha veiculos estacionados.");
             }
 
             Console.ReadKey();
@@ -147,7 +150,7 @@ namespace Services
               string ppp = placa.Substring(0, 3); 
               bool indicativo;
 
-              bool saoLetras = ppp.Take(3).All(char.IsLetter);
+              bool saoLetras = ppp.All(char.IsLetter);
               
              // pegar os 4 números tirando o "-"
              string numero = placa.Substring(placa.IndexOf('-')+1);
@@ -161,7 +164,7 @@ namespace Services
             }
             else
             {
-                System.Console.WriteLine("Placa fora do padrão");
+                System.Console.WriteLine("Placa fora do padrao");
                return indicativo=false;
                
             }
