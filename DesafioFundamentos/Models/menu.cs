@@ -1,4 +1,5 @@
 
+using System.ComponentModel.Design;
 using System.Security.Cryptography.X509Certificates;
 using Services;
 
@@ -6,33 +7,41 @@ namespace DesafioFundamentos.Models
 {
     public class Menu 
     {
-        bool PainelMenu = true;
-        static bool PInicial = true;
+        // variaveis static
+      static  bool PainelMenu = true;
+
+       static bool Inicio = true;
+
+        static decimal PH;
+
+        static decimal PI;
+        
         public void ApresentarMenu()
         {
-            if (PInicial)
+            if (Inicio)
             {
                 System.Console.WriteLine("Seja Bem Vindo ao sistema de Estacionamento!");
+                
                 System.Console.WriteLine("digite a preço Inicial:");
-                int horasInicial = int.Parse(Console.ReadLine());
+                PI = decimal.Parse(Console.ReadLine());
 
-                 System.Console.WriteLine("digite o preço hora:");
-                int precoHora = int.Parse(Console.ReadLine());
-                PInicial = false;
-                EstacionamentoService.PInicial(horasInicial,precoHora);
-                
-                
+              System.Console.WriteLine("digite o preço hora:");
+               PH = decimal.Parse(Console.ReadLine());
+                Inicio = false;
+           
+                        Estacionamento estacionamento = new Estacionamento(PI,PH);
+                        EstacionamentoService servico = new EstacionamentoService(estacionamento);
             }
 
-            
 
+               
             while (PainelMenu)
             {
                 System.Console.WriteLine("\n");
-                Console.WriteLine("Digite a sua opção:");
-                Console.WriteLine("1 - Cadastrar veículo");
-                Console.WriteLine("2 - Remover veículo");
-                Console.WriteLine("3 - Listar veículos");
+                Console.WriteLine("Digite a sua opcao:");
+                Console.WriteLine("1 - Cadastrar veiculo");
+                Console.WriteLine("2 - Remover veiculo");
+                Console.WriteLine("3 - Listar veiculos");
                 Console.WriteLine("4 - Encerrar");
 
                 switch (Console.ReadLine())
@@ -42,7 +51,7 @@ namespace DesafioFundamentos.Models
                         break;
 
                     case "2":
-                        EstacionamentoService.RemoverVeiculo();
+                       EstacionamentoService.RemoverVeiculo();
                         break;
 
                     case "3":
@@ -54,14 +63,15 @@ namespace DesafioFundamentos.Models
                         break;
 
                     default:
-                        Console.WriteLine("Opção inválida");
+                        Console.WriteLine("Opcao invalida");
                         break;
                 }
 
             }
              
             Console.WriteLine("O programa se encerrou");
-           throw new Exception("Fimmm!");
+            
+
         }
     }
 }

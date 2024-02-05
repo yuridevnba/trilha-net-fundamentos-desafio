@@ -7,31 +7,20 @@ namespace Services
     public class EstacionamentoService
     {
 
-    /// PInicial, PHora//////// 
-        ////////////////// 
+    private static Estacionamento estacionamento;
     
-    private static string _resultado;
 
-    public static string PInicial(decimal PInicio,decimal PHora)
-    {
-        _resultado = ($"{PInicio} {PHora}");
-        return _resultado;
-    }
+     public  EstacionamentoService(Estacionamento estacionamento) {
+       EstacionamentoService.estacionamento = estacionamento;
 
-    public static string UsarResultado()
-    {
-       
-        return _resultado;
-    }
-
-
+     }
         /// ADIÇÃO//////// 
         //////////////////        
         
         public static void Adicionar()
         {
 
-            Console.Clear();
+            
             Console.Write("Digite a placa do veículo para estacionar: ");
             string placa = Console.ReadLine().ToUpper();
 
@@ -52,7 +41,7 @@ namespace Services
 
                 else
                 {
-                    Console.WriteLine("Placa Inválida!!!");
+                    Console.WriteLine("Placa Já Existe no Estacionamento!!!");
                 }
 
 
@@ -83,30 +72,17 @@ namespace Services
             {
 
 
-              string Pinicial= EstacionamentoService.UsarResultado();
-
-                string Inicio = Pinicial.Substring(0, 1);
-                // System.Console.WriteLine(ppp);
-                 string Fim = Pinicial.Substring(2);
-
-              
-                decimal result = decimal.Parse(Inicio);
-                decimal resultt = decimal.Parse(Fim);
-
-               Estacionamento estacionamento = new Estacionamento(result,resultt);
-                //  System.Console.WriteLine(Pinicial);
-
-        
+                
                 Console.Write("Digite a quantidade de horas que o veículo permaneceu estacionado: ");
                 int horas = int.Parse(Console.ReadLine());
               
                  
-                 decimal valorTotal = estacionamento.ValorPagar(horas);
+              decimal valorTotal =   estacionamento.ValorPagar(horas);
                 EstacionamentoRepository.Delete(placa);
 
               
 
-                 Console.WriteLine($"O veículo  {placa}, foi removido e o preço total foi de: R$ {valorTotal.ToString("F2")}");
+                  Console.WriteLine($"O veículo  {placa}, foi removido e o preço total foi de: R$ {valorTotal}");
             }
             else
             {
@@ -153,29 +129,31 @@ namespace Services
 
         //// VALIDAR ////// 
         ///////////////////  
-        /// PFP1461//normal
+        /// PFP-1461//normal
         
 
-        public static bool ValidarPlaca(string placa)
+        public static bool ValidarPlaca(string placaa)
         {
-
+          
+        string  placa = placaa.Trim();
             
             if (string.IsNullOrWhiteSpace(placa)) { return false; }
 
             
-            if (placa.Length > 8) { return false; }
+            if (placa.Length != 8) { return false; }
 
 
-
+             ///pegar as 3 letras iniciais
               string ppp = placa.Substring(0, 3); 
-              bool indicativo = false;
-              
-           
-             string numero = placa.Substring(placa.IndexOf('-')+1);
-             bool ehValido = numero.ToCharArray().All(c => char.IsDigit(c));
-             
+              bool indicativo;
 
-            if (char.IsLetter(ppp,0) && char.IsLetter(ppp,1) && char.IsLetter(ppp,2)  && ehValido)
+              bool saoLetras = ppp.Take(3).All(char.IsLetter);
+              
+             // pegar os 4 números tirando o "-"
+             string numero = placa.Substring(placa.IndexOf('-')+1);
+             bool ehValido = numero.All(c => char.IsDigit(c));
+
+            if ( saoLetras && ehValido)
             {
              
              return indicativo=true;

@@ -7,7 +7,7 @@ namespace DesafioFundamentos.Models
         private decimal precoPorHora {get;set;} = 0;
         private List<string> veiculos { get; set; }
        
-        public  Estacionamento(decimal precoInicial, decimal precoHora)
+        public   Estacionamento(decimal precoInicial, decimal precoHora)
         {
             this.precoInicial = precoInicial;
             this.precoPorHora = precoHora;
